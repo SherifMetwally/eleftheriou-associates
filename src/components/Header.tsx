@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import SiteImage from "@/components/SiteImage";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -36,7 +36,7 @@ export default function Header() {
         }`}
       >
         <Link href="/" className="flex items-center gap-3 min-w-0" onClick={() => setOpen(false)}>
-          <Image
+          <SiteImage
             src="/logo.png"
             alt="Eleftheriou Associates"
             width={48}

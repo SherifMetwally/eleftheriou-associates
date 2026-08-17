@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import HeroGlobe from "@/components/HeroGlobe";
+import SiteImage from "@/components/SiteImage";
 import StatsStrip from "@/components/StatsStrip";
 import { NEWS, PILLARS, PROCESS, SECTORS, SERVICES, WHY_EAC } from "@/data/content";
 
@@ -157,7 +157,7 @@ export default function HomePage() {
                 className="hover-lift bg-white border border-[var(--line)] border-t-[3px] border-t-[var(--navy)] hover:border-[var(--gold)] hover:border-t-[var(--gold)]"
               >
                 <div className="zoom-img relative h-48 overflow-hidden">
-                  <Image
+                  <SiteImage
                     src={s.image}
                     alt=""
                     fill
@@ -266,7 +266,7 @@ export default function HomePage() {
                 className="hover-lift bg-white border border-[var(--line)] hover:border-[var(--gold)]"
               >
                 <div className="zoom-img relative h-48 overflow-hidden">
-                  <Image src={n.image} alt="" fill className="object-cover" />
+                  <SiteImage src={n.image} alt="" fill className="object-cover" />
                 </div>
                 <div className="p-5">
                   <h3 className="font-serif text-xl text-[var(--navy)] mb-2">{n.title}</h3>

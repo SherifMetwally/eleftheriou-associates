@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import SiteImage from "@/components/SiteImage";
 import { SERVICES } from "@/data/content";
 
 export const metadata: Metadata = { title: "Services" };
@@ -26,7 +26,7 @@ export default function ServicesPage() {
             className="hover-lift bg-white scroll-mt-24"
           >
             <div className="zoom-img relative h-52 overflow-hidden">
-              <Image
+              <SiteImage
                 src={s.image}
                 alt=""
                 fill

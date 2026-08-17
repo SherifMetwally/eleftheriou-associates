@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import SiteImage from "@/components/SiteImage";
 import { NEWS } from "@/data/content";
 
 export const metadata: Metadata = { title: "News & Insights" };
@@ -22,7 +22,7 @@ export default function NewsPage() {
             className="hover-lift bg-white border border-[var(--line)] overflow-hidden hover:border-[var(--gold)]"
           >
             <div className="zoom-img relative h-48">
-              <Image src={n.image} alt="" fill className="object-cover" />
+              <SiteImage src={n.image} alt="" fill className="object-cover" />
             </div>
             <div className="p-7">
               <p className="text-xs text-[var(--gold-2)] uppercase mb-2">

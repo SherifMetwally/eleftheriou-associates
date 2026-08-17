@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+import SiteImage from "@/components/SiteImage";
 import StatsStrip from "@/components/StatsStrip";
 import {
   ABOUT_PATHS,
@@ -16,7 +16,7 @@ export default function AboutPage() {
     <>
       <section className="relative overflow-hidden bg-[#05070d] text-white">
         <div className="pointer-events-none absolute -right-8 top-0 hidden h-full w-[46%] md:block">
-          <Image
+          <SiteImage
             src="/images/skyline.jpg"
             alt=""
             fill
@@ -95,7 +95,7 @@ export default function AboutPage() {
             </div>
           </div>
           <div data-reveal className="lg:col-span-6 relative h-[420px] overflow-hidden">
-            <Image
+            <SiteImage
               src="/images/boardroom.jpg"
               alt=""
               fill
@@ -242,7 +242,7 @@ export default function AboutPage() {
       <section className="bg-[var(--paper)] py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-5 grid lg:grid-cols-12 gap-10 items-center">
           <div data-reveal className="lg:col-span-5 relative h-80 overflow-hidden">
-            <Image
+            <SiteImage
               src="/images/meeting.jpg"
               alt=""
               fill

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import SiteImage from "@/components/SiteImage";
 import { NEWS } from "@/data/content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -34,7 +34,7 @@ export default async function ArticlePage({ params }: Props) {
       </h1>
       {article.image && (
         <div className="relative h-64 mb-8">
-          <Image src={article.image} alt="" fill className="object-cover" />
+          <SiteImage src={article.image} alt="" fill className="object-cover" />
         </div>
       )}
       <p className="text-[var(--muted)] leading-relaxed text-lg">{article.body}</p>
