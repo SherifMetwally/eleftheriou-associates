@@ -1,26 +1,310 @@
 @import "tailwindcss";
 
 :root {
+  --navy: #0f1b3d;
+  --navy-2: #1a2a5e;
+  --gold: #c9a84c;
+  --gold-2: #a88832;
+  --paper: #f2f5f9;
+  --line: #dfe4ec;
+  --muted: #55607a;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #10182c;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-source);
+  --font-serif: var(--font-cormorant);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.font-serif {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+.btn-gold,
+.btn-outline,
+.btn-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.25rem;
+  letter-spacing: 0.04em;
+  transition: background 220ms var(--ease), color 220ms var(--ease),
+    transform 220ms var(--ease), box-shadow 220ms var(--ease);
+}
+
+.btn-gold:hover,
+.btn-outline:hover,
+.btn-navy:hover {
+  transform: translateY(-2px);
+}
+
+.btn-gold:active,
+.btn-outline:active,
+.btn-navy:active {
+  transform: translateY(0);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.btn-gold:hover {
+  background: #d4b45c;
+  box-shadow: 0 12px 26px -16px rgba(201, 168, 76, 0.9);
+}
+
+.btn-outline {
+  border: 1px solid var(--gold);
+  color: var(--gold);
+}
+
+.btn-outline:hover {
+  background: rgba(201, 168, 76, 0.12);
+}
+
+.btn-navy {
+  background: var(--navy);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-navy:hover {
+  background: #1a2a5e;
+  box-shadow: 0 12px 26px -16px rgba(15, 27, 61, 0.9);
+}
+
+.hero-globe-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 34%, #000 100%);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Inner pages arrive as one block; the home page reveals section by section. */
+main > div,
+main > article {
+  animation: rise 650ms var(--ease) both;
+}
+
+.hero-rise > * {
+  animation: rise 800ms var(--ease) both;
+}
+
+.hero-rise > *:nth-child(1) {
+  animation-delay: 60ms;
+}
+.hero-rise > *:nth-child(2) {
+  animation-delay: 160ms;
+}
+.hero-rise > *:nth-child(3) {
+  animation-delay: 260ms;
+}
+.hero-rise > *:nth-child(4) {
+  animation-delay: 360ms;
+}
+.hero-rise > *:nth-child(5) {
+  animation-delay: 460ms;
+}
+
+/*
+ * Scroll reveal. The hidden state is scoped to .js-anim, which is set by an
+ * inline script before first paint, so content stays visible without JS.
+ */
+[data-reveal],
+[data-stagger] > * {
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+
+.js-anim [data-reveal],
+.js-anim [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.js-anim [data-reveal].is-in,
+.js-anim [data-stagger].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+
+[data-stagger].is-in > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+[data-stagger].is-in > *:nth-child(2) {
+  transition-delay: 80ms;
+}
+[data-stagger].is-in > *:nth-child(3) {
+  transition-delay: 160ms;
+}
+[data-stagger].is-in > *:nth-child(4) {
+  transition-delay: 240ms;
+}
+[data-stagger].is-in > *:nth-child(5) {
+  transition-delay: 320ms;
+}
+[data-stagger].is-in > *:nth-child(n + 6) {
+  transition-delay: 400ms;
+}
+
+@keyframes menuDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.menu-in {
+  animation: menuDrop 260ms var(--ease) both;
+}
+
+/* Service pillars: the icon fills and lifts while a ring opens around it. */
+.pillar-icon {
+  position: relative;
+  transition: transform 380ms var(--ease), background-color 380ms var(--ease),
+    color 380ms var(--ease), border-color 380ms var(--ease),
+    box-shadow 380ms var(--ease);
+}
+
+.pillar-icon::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 9999px;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  transform: scale(0.86);
+  transition: opacity 480ms var(--ease), transform 480ms var(--ease);
+}
+
+.pillar-icon svg {
+  transition: transform 480ms var(--ease);
+}
+
+.pillar:hover .pillar-icon {
+  transform: translateY(-4px);
+  background-color: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 16px 32px -16px rgba(201, 168, 76, 0.85);
+}
+
+.pillar:hover .pillar-icon::after {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.pillar:hover .pillar-icon svg {
+  transform: scale(1.08);
+}
+
+.pillar-title {
+  transition: color 300ms var(--ease);
+}
+
+.pillar:hover .pillar-title {
+  color: var(--gold-2);
+}
+
+.hover-lift {
+  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease),
+    border-color 320ms var(--ease);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 45px -28px rgba(15, 27, 61, 0.65);
+}
+
+.hover-lift-navy:hover {
+  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.55);
+}
+
+.zoom-img img {
+  transition: transform 900ms var(--ease);
+}
+
+.hover-lift:hover .zoom-img img,
+.zoom-img:hover img {
+  transform: scale(1.06);
+}
+
+/* Text figures focus in while the numbers count up. Nothing here reflows. */
+.stat-text {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(8px) scale(0.97);
+  transition: opacity 900ms var(--ease), filter 900ms var(--ease),
+    transform 900ms var(--ease);
+}
+
+.stat-text.is-live {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+footer a {
+  transition: color 200ms var(--ease);
+}
+
+.link-arrow {
+  display: inline-block;
+  transition: transform 220ms var(--ease), color 220ms var(--ease);
+}
+
+.link-arrow:hover {
+  transform: translateX(4px);
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .js-anim [data-reveal],
+  .js-anim [data-stagger] > *,
+  .stat-text {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
