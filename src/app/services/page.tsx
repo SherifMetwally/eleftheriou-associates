@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import SiteImage from "@/components/SiteImage";
 import { SERVICES } from "@/data/content";
 
@@ -7,18 +8,17 @@ export const metadata: Metadata = { title: "Services" };
 
 export default function ServicesPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
-      <p className="text-xs uppercase tracking-[0.2em] text-[var(--gold-2)] mb-3">
-        What we offer
-      </p>
-      <h1 className="font-serif text-5xl text-[var(--navy)] mb-4">Services</h1>
-      <p className="text-[var(--muted)] max-w-2xl mb-12 leading-relaxed">
+    <>
+      <PageHero
+        eyebrow="What we offer"
+        title="Services"
+        image="/images/columns.jpg"
+      >
         A one-stop shop for foreign companies entering Egypt and our territory,
-        and for regional companies reaching world markets. Each brief below
-        follows Addendum B of the EAC brief. Dedicated microsites can be
-        expanded in Stage 2.
-      </p>
-      <div data-stagger className="grid md:grid-cols-2 gap-8">
+        and for regional companies reaching world markets.
+      </PageHero>
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <div data-stagger className="grid md:grid-cols-2 gap-8">
         {SERVICES.map((s, i) => (
           <article
             key={s.slug}
@@ -53,12 +53,13 @@ export default function ServicesPage() {
             </div>
           </article>
         ))}
+        </div>
+        <div className="mt-12">
+          <Link href="/contact" className="btn-gold">
+            Discuss this service
+          </Link>
+        </div>
       </div>
-      <div className="mt-12">
-        <Link href="/contact" className="btn-gold">
-          Discuss this service
-        </Link>
-      </div>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import SiteImage from "@/components/SiteImage";
 import { NEWS } from "@/data/content";
 
@@ -7,14 +8,15 @@ export const metadata: Metadata = { title: "News & Insights" };
 
 export default function NewsPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16">
-      <p className="text-xs uppercase tracking-[0.2em] text-[var(--gold-2)] mb-3">
-        Editorial
-      </p>
-      <h1 className="font-serif text-5xl text-[var(--navy)] mb-10">
-        News &amp; insights
-      </h1>
-      <div data-stagger className="grid md:grid-cols-2 gap-6">
+    <>
+      <PageHero
+        eyebrow="Editorial"
+        title="News & insights"
+        image="/images/column-capital.jpg"
+      >
+        Notes from the region as the practice restarts.
+      </PageHero>
+      <div className="mx-auto max-w-6xl px-5 py-16">
         {NEWS.map((n) => (
           <Link
             key={n.slug}
@@ -37,5 +39,6 @@ export default function NewsPage() {
         ))}
       </div>
     </div>
+    </>
   );
 }

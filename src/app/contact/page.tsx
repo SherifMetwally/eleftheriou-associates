@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
+import PageHero from "@/components/PageHero";
 import { CONTACT, OFFICES } from "@/data/content";
 
 export const metadata: Metadata = { title: "Contact" };
 
 export default function ContactPage() {
   return (
-    <div className="mx-auto max-w-6xl px-5 py-16 grid md:grid-cols-2 gap-12">
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-[var(--gold-2)] mb-3">
-          Get in touch
-        </p>
-        <h1 className="font-serif text-5xl text-[var(--navy)] mb-4">Contact</h1>
-        <p className="text-[var(--muted)] leading-relaxed mb-8">
-          Tell us about your market-entry, export, or joint-venture requirement.
-          We will respond to serious inquiries.
-        </p>
+    <>
+      <PageHero
+        eyebrow="Get in touch"
+        title="Contact"
+        image="/images/columns.jpg"
+      >
+        Tell us about your market-entry, export, or joint-venture requirement.
+        We will respond to serious inquiries.
+      </PageHero>
+      <div className="mx-auto max-w-6xl px-5 py-16 grid md:grid-cols-2 gap-12">
         <ul className="text-sm text-[var(--navy)] space-y-5">
           {OFFICES.map((o) => (
             <li key={o.city}>
@@ -46,7 +47,6 @@ export default function ContactPage() {
             </p>
           </li>
         </ul>
-      </div>
       <form
         className="bg-white border border-[var(--line)] p-6 space-y-4"
         action={`mailto:${CONTACT.email}`}
@@ -105,5 +105,6 @@ export default function ContactPage() {
         </button>
       </form>
     </div>
+    </>
   );
 }

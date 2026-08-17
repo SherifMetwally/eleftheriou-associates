@@ -142,7 +142,7 @@ export const SERVICES = [
   {
     slug: "government",
     title: "Government Negotiation Support",
-    image: "/images/documents.jpg",
+    image: "/images/columns.jpg",
     summary:
       "Lobbying and negotiation support with public stakeholders during setup and the business-development cycle.",
   },
