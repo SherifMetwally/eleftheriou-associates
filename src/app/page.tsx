@@ -1,8 +1,13 @@
 import Link from "next/link";
+import FaqAccordion from "@/components/FaqAccordion";
 import HeroGlobe from "@/components/HeroGlobe";
-import SiteImage from "@/components/SiteImage";
+import IndustriesGrid from "@/components/IndustriesGrid";
+import NewsCarousel from "@/components/NewsCarousel";
+import ServiceCarousel from "@/components/ServiceCarousel";
 import StatsStrip from "@/components/StatsStrip";
-import { NEWS, PILLARS, PROCESS, SECTORS, SERVICES, WHY_EAC } from "@/data/content";
+import Testimonials from "@/components/Testimonials";
+import WhyUs from "@/components/WhyUs";
+import { NEWS, PILLARS, PROCESS, SERVICES } from "@/data/content";
 
 const PILLAR_ICONS = [
   <svg key="compass" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
@@ -53,13 +58,27 @@ export default function HomePage() {
             <p className="mt-4 text-[var(--gold)] text-xs uppercase tracking-[0.18em]">
               Mediterranean Europe · North Africa · Mideast · GCC
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="mt-3 text-white/55 text-sm">
+              Click a country on the globe to see the services we offer there.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-5">
               <Link href="#services" className="btn-gold">
                 Explore our services →
               </Link>
               <Link href="/contact" className="btn-outline">
                 Let&apos;s connect
               </Link>
+              <div className="hero-badge hidden sm:flex">
+                <span className="text-[9px] uppercase tracking-[0.2em] text-[var(--gold)]">
+                  Since
+                </span>
+                <span className="font-serif text-2xl text-white leading-none mt-0.5">
+                  2001
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.16em] text-white/70 mt-1">
+                  Egypt HQ
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -119,20 +138,18 @@ export default function HomePage() {
           <h2 data-reveal className="font-serif text-4xl md:text-5xl text-center mb-14">
             A proven path to international growth
           </h2>
-          <div className="relative">
-            <div className="hidden lg:block absolute top-8 left-[10%] right-[10%] h-px bg-[var(--gold)]/30" />
-            <div data-stagger className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+          <div data-stagger className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
               {PROCESS.map((p) => (
-                <div key={p.step} className="text-center px-2">
-                  <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--gold)] bg-[var(--navy)] font-serif text-xl text-[var(--gold)]">
-                    {p.step}
-                  </div>
-                  <h3 className="font-serif text-xl mb-2">{p.title}</h3>
+                <div key={p.step} className="process-step px-1 pt-6">
+                  <span className="process-num">{p.step}</span>
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--gold)] mb-3">
+                    Process — {p.step}
+                  </p>
+                  <h3 className="font-serif text-2xl mb-3">{p.title}</h3>
                   <p className="text-sm text-white/70 leading-relaxed">{p.body}</p>
                 </div>
               ))}
             </div>
-          </div>
         </div>
       </section>
 
@@ -146,99 +163,82 @@ export default function HomePage() {
               Everything we offer
             </h2>
             <p className="text-[var(--muted)] leading-relaxed">
-              A brief of each service on the landing page — open the full Services
-              page for process and outcomes.
+              Square photographs throughout. One slide holds three services, the
+              next holds two — then it repeats. Use the arrows or swipe.
             </p>
           </div>
-          <div data-stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {SERVICES.map((s) => (
-              <article
-                key={s.slug}
-                className="hover-lift bg-white border border-[var(--line)] border-t-[3px] border-t-[var(--navy)] hover:border-[var(--gold)] hover:border-t-[var(--gold)]"
-              >
-                <div className="zoom-img relative h-48 overflow-hidden">
-                  <SiteImage
-                    src={s.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-serif text-2xl text-[var(--navy)] mb-2 leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-sm text-[var(--muted)] leading-relaxed mb-4 line-clamp-3">
-                    {s.summary}
-                  </p>
-                  <Link
-                    href={`/services#${s.slug}`}
-                    className="link-arrow text-[var(--gold-2)] text-xs uppercase tracking-[0.16em] font-semibold"
-                  >
-                    Learn more →
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+          <ServiceCarousel actionLabel="Learn more" />
           <div className="mt-14 flex justify-end">
             <Link
               href="/services"
               className="link-arrow text-[var(--gold-2)] text-xs uppercase tracking-[0.16em] font-semibold"
             >
-              View all services →
+              See all {SERVICES.length} services →
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-[var(--navy)] text-white py-16 md:py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <p
-            data-reveal
-            className="text-xs uppercase tracking-[0.22em] text-[var(--gold)] mb-3"
-          >
-            Differentiation
-          </p>
-          <h2
-            data-reveal
-            className="font-serif text-4xl md:text-5xl mb-10"
-          >
-            Why you need to work with us
-          </h2>
-          <div data-stagger className="grid md:grid-cols-2 gap-x-12 gap-y-10">
-            {WHY_EAC.map((item) => (
-              <article key={item.title} className="border-t border-[var(--gold)]/50 pt-5">
-                <h3 className="font-serif text-2xl text-[var(--gold)] mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-white/75 leading-relaxed">{item.body}</p>
-              </article>
-            ))}
-          </div>
-          <Link href="/contact" className="btn-gold w-fit mt-12">
-            Book a discussion →
-          </Link>
-        </div>
-      </section>
+      <WhyUs />
 
-      <section className="border-y border-[var(--line)] bg-[var(--paper)] py-10">
-        <div data-reveal className="mx-auto max-w-6xl px-5">
-          <div className="flex items-end justify-between mb-4">
-            <h2 className="font-serif text-2xl text-[var(--navy)]">Industries we serve</h2>
-            <Link
-              href="/sectors"
-              className="link-arrow text-xs uppercase tracking-[0.16em] text-[var(--gold-2)]"
+      <section className="bg-[var(--paper)] py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-5 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-4">
+            <p
+              data-reveal
+              className="text-xs uppercase tracking-[0.22em] text-[var(--gold-2)] mb-3"
             >
-              All sectors →
+              Question answers
+            </p>
+            <h2
+              data-reveal
+              className="font-serif text-4xl md:text-5xl text-[var(--navy)] mb-5"
+            >
+              If you have any more questions, contact us.
+            </h2>
+            <p data-reveal className="text-[var(--muted)] leading-relaxed mb-8">
+              Typical first questions from companies entering Egypt, exporting
+              from the region, or structuring a joint venture around an unmet
+              need.
+            </p>
+            <Link href="/contact" className="btn-gold w-fit">
+              Ask the desk →
             </Link>
           </div>
-          <p className="text-sm text-[var(--navy)] leading-relaxed">
-            {SECTORS.join(" · ")}
-          </p>
+          <div className="lg:col-span-8">
+            <FaqAccordion />
+          </div>
         </div>
       </section>
+
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-5 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-5">
+            <p
+              data-reveal
+              className="text-xs uppercase tracking-[0.22em] text-[var(--gold-2)] mb-3"
+            >
+              What they are talking about
+            </p>
+            <h2
+              data-reveal
+              className="font-serif text-4xl md:text-5xl text-[var(--navy)] mb-5"
+            >
+              Sample notes from the work.
+            </h2>
+            <p data-reveal className="text-[var(--muted)] leading-relaxed">
+              Layout quotes only — not named client references. Replace with
+              text George supplies. Until then, these describe the three
+              directions of the practice.
+            </p>
+          </div>
+          <div className="lg:col-span-7">
+            <Testimonials />
+          </div>
+        </div>
+      </section>
+
+      <IndustriesGrid />
 
       <section className="bg-white py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-5">
@@ -258,26 +258,7 @@ export default function HomePage() {
               View all insights →
             </Link>
           </div>
-          <div data-stagger className="grid md:grid-cols-3 gap-8">
-            {NEWS.map((n) => (
-              <Link
-                key={n.slug}
-                href={`/news/${n.slug}`}
-                className="hover-lift bg-white border border-[var(--line)] hover:border-[var(--gold)]"
-              >
-                <div className="zoom-img relative h-48 overflow-hidden">
-                  <SiteImage src={n.image} alt="" fill className="object-cover" />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-serif text-xl text-[var(--navy)] mb-2">{n.title}</h3>
-                  <p className="text-sm text-[var(--muted)] line-clamp-3 mb-4">{n.excerpt}</p>
-                  <p className="text-[var(--gold-2)] text-xs uppercase tracking-[0.16em] font-semibold">
-                    Read more →
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <NewsCarousel items={NEWS} />
         </div>
       </section>
     </>

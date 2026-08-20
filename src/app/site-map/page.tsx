@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MARKETS } from "@/data/markets";
 
 export const metadata: Metadata = { title: "Site Map" };
 
@@ -19,6 +20,10 @@ const GROUPS = [
       ["Careers", "/careers"],
       ["Contact", "/contact"],
     ],
+  },
+  {
+    title: "Markets",
+    links: MARKETS.map((m) => [m.name, `/markets/${m.slug}`] as [string, string]),
   },
   {
     title: "Legal",

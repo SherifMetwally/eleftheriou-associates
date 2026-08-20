@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   geoDistance,
   geoGraticule10,
@@ -17,6 +18,7 @@ import {
   type TerritoryId,
 } from "@/data/territories";
 import { ARC_CROSS, ARC_HUB, ARC_SPOKES, HUBS } from "@/data/hubs";
+import { MARKET_BY_ISO } from "@/data/markets";
 import { asset } from "@/lib/asset";
 
 const SIZE = 900;
@@ -50,18 +52,28 @@ type CountryFeature = GeoJSON.Feature<Geometry, CountryProps> & {
 
 export default function HeroGlobe({
   variant = "hero",
+  focusIso,
 }: {
   variant?: "hero" | "page";
+  /** Country to light up and centre on from the start. */
+  focusIso?: number;
 }) {
   const uid = useId().replace(/:/g, "");
+  const router = useRouter();
+  const focus = focusIso !== undefined ? MARKET_BY_ISO.get(focusIso) : undefined;
+  const initialView: [number, number] = focus
+    ? [focus.lon, focus.lat]
+    : DEFAULT_VIEW;
   const [countries, setCountries] = useState<CountryFeature[]>([]);
-  const [view, setView] = useState<[number, number]>(DEFAULT_VIEW);
+  const [view, setView] = useState<[number, number]>(initialView);
   /** A single country lights up on hover; the legend lights a whole territory. */
   const [hoverKey, setHoverKey] = useState<string | null>(null);
   const [legendRegion, setLegendRegion] = useState<TerritoryId | null>(null);
-  const [label, setLabel] = useState<string>("");
-  const [labelRegion, setLabelRegion] = useState<TerritoryId | null>(null);
-  const target = useRef<[number, number]>(DEFAULT_VIEW);
+  const [label, setLabel] = useState<string>(focus?.name ?? "");
+  const [labelRegion, setLabelRegion] = useState<TerritoryId | null>(
+    focus?.region ?? null
+  );
+  const target = useRef<[number, number]>(initialView);
   const frame = useRef<number | null>(null);
 
   useEffect(() => {
@@ -107,6 +119,34 @@ export default function HeroGlobe({
     },
     []
   );
+
+  useEffect(() => {
+    if (focusIso === undefined) return;
+    const next = MARKET_BY_ISO.get(focusIso);
+    if (!next) return;
+    target.current = [next.lon, next.lat];
+    setView([next.lon, next.lat]);
+    setLabel(next.name);
+    setLabelRegion(next.region);
+  }, [focusIso]);
+
+  function openMarket(iso: number) {
+    const market = MARKET_BY_ISO.get(iso);
+    if (!market || market.iso === focusIso) return;
+    router.push(`/markets/${market.slug}`);
+  }
+
+  function restoreFocus() {
+    setHoverKey(null);
+    setLegendRegion(null);
+    if (focus) {
+      setLabel(focus.name);
+      setLabelRegion(focus.region);
+    } else {
+      setLabel("");
+      setLabelRegion(null);
+    }
+  }
 
   const { path, projection } = useMemo(() => {
     const projection = geoOrthographic()
@@ -187,14 +227,9 @@ export default function HeroGlobe({
         className="h-full w-full"
         role="img"
         aria-label="Interactive globe of the markets covered by Eleftheriou Associates"
-        onMouseLeave={() => {
-          setHoverKey(null);
-          setLegendRegion(null);
-          setLabel("");
-          setLabelRegion(null);
-        }}
+        onMouseLeave={restoreFocus}
       >
-        <title>Hover a country to highlight the territory it belongs to</title>
+        <title>Click a covered country to open its services</title>
         <defs>
           <radialGradient id={`${uid}-ocean`} cx="38%" cy="30%" r="78%">
             <stop offset="0%" stopColor="#1d2739" />
@@ -235,9 +270,12 @@ export default function HeroGlobe({
           const region = ISO_TO_TERRITORY.get(iso);
           const name = c.properties?.name ?? "";
           const key = `c-${i}`;
+          const market = MARKET_BY_ISO.get(iso);
+          const isFocus = focusIso !== undefined && iso === focusIso;
           const isHot =
-            region !== undefined &&
-            (hoverKey === key || (legendRegion !== null && region === legendRegion));
+            isFocus ||
+            (region !== undefined &&
+              (hoverKey === key || (legendRegion !== null && region === legendRegion)));
           return (
             <path
               key={key}
@@ -260,6 +298,10 @@ export default function HeroGlobe({
               }}
               onClick={() => {
                 if (!region) return;
+                if (market) {
+                  openMarket(iso);
+                  return;
+                }
                 setHoverKey(key);
                 setLegendRegion(null);
                 setLabel(name);
@@ -267,7 +309,11 @@ export default function HeroGlobe({
                 turnTo(TERRITORY_VIEW[region]);
               }}
             >
-              {region ? <title>{name}</title> : null}
+              {region ? (
+                <title>
+                  {market ? `${name} — view services` : name}
+                </title>
+              ) : null}
             </path>
           );
         })}
@@ -277,7 +323,9 @@ export default function HeroGlobe({
           const [x, y] = projection([m.lon, m.lat]) ?? [0, 0];
           const key = `m-${m.iso}`;
           const isHot =
-            hoverKey === key || (legendRegion !== null && m.region === legendRegion);
+            (focusIso !== undefined && m.iso === focusIso) ||
+            hoverKey === key ||
+            (legendRegion !== null && m.region === legendRegion);
           return (
             <circle
               key={key}
@@ -293,15 +341,9 @@ export default function HeroGlobe({
                 setLabel(m.name);
                 setLabelRegion(m.region);
               }}
-              onClick={() => {
-                setHoverKey(key);
-                setLegendRegion(null);
-                setLabel(m.name);
-                setLabelRegion(m.region);
-                turnTo(TERRITORY_VIEW[m.region]);
-              }}
+              onClick={() => openMarket(m.iso)}
             >
-              <title>{m.name}</title>
+              <title>{`${m.name} — view services`}</title>
             </circle>
           );
         })}
@@ -393,7 +435,7 @@ export default function HeroGlobe({
                     ? ` — ${TERRITORIES.find((t) => t.id === labelRegion)?.name}`
                     : ""
                 }`
-              : "Hover a country to highlight it"}
+              : "Click a country for its services"}
           </span>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import MarqueeBand from "@/components/MarqueeBand";
 import ScrollReveal from "@/components/ScrollReveal";
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body className={`${source.variable} ${cormorant.variable} antialiased font-sans`}>
         <Header />
         <main>{children}</main>
+        <MarqueeBand />
         <Footer />
         <ScrollReveal />
       </body>

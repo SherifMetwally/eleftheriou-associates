@@ -6,6 +6,7 @@ import {
   GLOBAL_REACH,
   TERRITORIES,
 } from "@/data/territories";
+import { MARKET_BY_NAME } from "@/data/markets";
 
 export const metadata: Metadata = { title: "Territories & Markets" };
 
@@ -30,8 +31,8 @@ export default function TerritoriesPage() {
             <p className="mt-5 text-white/82 leading-relaxed max-w-lg">
               Mediterranean Europe, North Africa, the Mideast, and the Arab
               Gulf — {COVERED_COUNTRY_COUNT} countries, with headquarters and
-              primary focus on Egypt. Hover a country to light it; click a
-              territory to turn the globe.
+              Hover a country to light it; click it to open that market&apos;s
+              services. The globe below is the same as on the home page.
             </p>
             <p className="mt-4 text-[var(--gold)] text-xs uppercase tracking-[0.18em]">
               Mediterranean Europe · North Africa · Mideast · GCC
@@ -86,7 +87,24 @@ export default function TerritoriesPage() {
                   {t.summary}
                 </p>
                 <p className="text-xs text-[var(--navy)] leading-relaxed">
-                  {t.countries.join(" · ")}
+                  {t.countries.map((name, i) => {
+                    const market = MARKET_BY_NAME.get(name);
+                    return (
+                      <span key={name}>
+                        {i > 0 ? " · " : null}
+                        {market ? (
+                          <Link
+                            href={`/markets/${market.slug}`}
+                            className="hover:text-[var(--gold-2)]"
+                          >
+                            {name}
+                          </Link>
+                        ) : (
+                          name
+                        )}
+                      </span>
+                    );
+                  })}
                 </p>
               </article>
             ))}

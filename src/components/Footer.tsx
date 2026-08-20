@@ -115,6 +115,19 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      <div className="border-t border-white/10">
+        <p className="mx-auto max-w-6xl px-5 py-4 text-center text-xs text-white/50">
+          Designed and developed by{" "}
+          <a
+            href="https://www.linkedin.com/in/sherifmetwally/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--gold)] hover:text-white"
+          >
+            Sherif Metwally
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

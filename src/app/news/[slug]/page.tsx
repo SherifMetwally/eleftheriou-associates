@@ -33,7 +33,7 @@ export default async function ArticlePage({ params }: Props) {
         {article.title}
       </h1>
       {article.image && (
-        <div className="relative h-64 mb-8">
+        <div className="relative aspect-[16/9] min-h-[220px] mb-10 overflow-hidden">
           <SiteImage src={article.image} alt="" fill className="object-cover" />
         </div>
       )}

@@ -247,6 +247,10 @@ main > article {
   box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.55);
 }
 
+.zoom-img {
+  position: relative;
+}
+
 .zoom-img img {
   transition: transform 900ms var(--ease);
 }
@@ -286,6 +290,210 @@ footer a {
   color: var(--gold);
 }
 
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.hero-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 7.25rem;
+  height: 7.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--gold);
+  background: rgba(5, 7, 13, 0.72);
+  box-shadow: 0 0 0 8px rgba(201, 168, 76, 0.12);
+  animation: rise 900ms var(--ease) 500ms both;
+}
+
+.service-panel {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  padding: 2rem 1.6rem 9rem;
+  transition: transform 420ms var(--ease), box-shadow 420ms var(--ease);
+}
+
+.service-panel:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 50px -32px rgba(15, 27, 61, 0.7);
+}
+
+.service-panel-photo {
+  position: absolute;
+  right: 1.35rem;
+  bottom: 1.2rem;
+  width: min(58%, 210px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  transition: transform 700ms var(--ease);
+}
+
+.service-panel:hover .service-panel-photo {
+  transform: translateY(-12px);
+}
+
+.photo-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    rgba(15, 27, 61, 0.55) 100%
+  );
+  opacity: 0.45;
+  transition: opacity 400ms var(--ease);
+  pointer-events: none;
+}
+
+.service-panel:hover .photo-veil,
+.zoom-img:hover .photo-veil,
+.news-card:hover .photo-veil {
+  opacity: 0.85;
+}
+
+.process-step {
+  position: relative;
+  overflow: hidden;
+}
+
+.process-num {
+  position: absolute;
+  top: -0.35rem;
+  right: 0.15rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 4.4rem;
+  line-height: 1;
+  color: rgba(201, 168, 76, 0.14);
+  pointer-events: none;
+  transition: color 400ms var(--ease), transform 400ms var(--ease);
+}
+
+.process-step:hover .process-num {
+  color: rgba(201, 168, 76, 0.32);
+  transform: translateY(-4px);
+}
+
+.news-card .photo-veil {
+  opacity: 0.35;
+}
+
+.news-scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.news-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.news-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--gold);
+  color: var(--gold-2);
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: background 220ms var(--ease), color 220ms var(--ease),
+    transform 220ms var(--ease);
+}
+
+.news-arrow:hover {
+  background: var(--gold);
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+
+.svc-track {
+  transition: transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.why-item {
+  border-left: 2px solid rgba(201, 168, 76, 0.22);
+  padding: 1rem 0 1rem 1.1rem;
+  transition: border-color 280ms var(--ease), background 280ms var(--ease);
+}
+
+.why-item:hover,
+.why-item.is-on {
+  border-left-color: var(--gold);
+}
+
+.why-item.is-on {
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.quote-track {
+  transition: transform 720ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.sector-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  padding: 0.7rem 1.35rem;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 22px -14px rgba(15, 27, 61, 0.45);
+  transition: transform 280ms var(--ease), box-shadow 280ms var(--ease),
+    color 280ms var(--ease);
+}
+
+.sector-pill:hover {
+  transform: translateY(-3px);
+  color: var(--gold-2);
+  box-shadow: 0 16px 28px -16px rgba(15, 27, 61, 0.55);
+}
+
+.industry-row {
+  overflow: hidden;
+}
+
+.industry-track {
+  display: flex;
+  width: max-content;
+  animation: industry-scroll 42s linear infinite;
+}
+
+.industry-track.reverse {
+  animation-direction: reverse;
+}
+
+.industry-row:hover .industry-track {
+  animation-play-state: paused;
+}
+
+@keyframes industry-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -306,5 +514,14 @@ footer a {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  .marquee-track,
+  .hero-badge,
+  .svc-track,
+  .quote-track,
+  .industry-track {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -74,7 +74,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div data-reveal className="lg:col-span-6 relative h-[420px] overflow-hidden">
+          <div data-reveal className="lg:col-span-6 relative min-h-[380px] overflow-hidden">
             <SiteImage
               src="/images/boardroom.jpg"
               alt=""
@@ -221,7 +221,7 @@ export default function AboutPage() {
 
       <section className="bg-[var(--paper)] py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-5 grid lg:grid-cols-12 gap-10 items-center">
-          <div data-reveal className="lg:col-span-5 relative h-80 overflow-hidden">
+          <div data-reveal className="lg:col-span-5 relative min-h-[340px] overflow-hidden">
             <SiteImage
               src="/images/meeting.jpg"
               alt=""

@@ -155,6 +155,17 @@ export const SERVICES = [
   },
 ];
 
+export type Service = (typeof SERVICES)[number];
+
+export const SERVICE_BY_SLUG = new Map(SERVICES.map((s) => [s.slug, s]));
+
+/** Keeps the given order and silently drops slugs that no longer exist. */
+export function servicesBySlug(slugs: string[]): Service[] {
+  return slugs
+    .map((slug) => SERVICE_BY_SLUG.get(slug))
+    .filter((s): s is Service => Boolean(s));
+}
+
 export const SECTORS = [
   "Agriculture",
   "Automotive",
@@ -263,6 +274,55 @@ export const WHY_EAC = [
   },
 ];
 
+/** Questions a first-time counterpart typically asks. */
+export const FAQS = [
+  {
+    q: "How does a foreign company enter Egypt through this desk?",
+    a: "Eligibility first, then market intelligence, then the local counterpart. We advise on the route — entity, partner, joint venture or acquisition — and stay through setup rather than stopping at a report.",
+  },
+  {
+    q: "Do you only work in Egypt?",
+    a: "Egypt is headquarters and the primary market, since 2001. Coverage also runs across North Africa, Mediterranean Europe, the Mideast and the Arab Gulf, with a European office in Athens.",
+  },
+  {
+    q: "Can you help Egyptian and North African companies export?",
+    a: "Yes. The same desk prepares SMEs that lack the usual export prerequisites, with particular emphasis on Europe — matchmaking, market development, and the practical path to trade.",
+  },
+  {
+    q: "What if the local market has a need nobody has tried?",
+    a: "We research globally for a supplier of that unmet need, then structure a joint venture between the foreign and local counterpart. That is a core part of the practice, not an exception.",
+  },
+  {
+    q: "Are client matters confidential?",
+    a: "Yes. Client files stay inside the room. We do not disclose work to third parties without written consent.",
+  },
+];
+
+/**
+ * Layout samples only. Replace with quotes George supplies.
+ * No invented client names presented as real references.
+ */
+export const TESTIMONIALS = [
+  {
+    quote:
+      "The work did not stop at a slide deck. Eligibility, the counterpart, then hands-on setup — one desk from first brief to the entity trading.",
+    name: "Sample quote",
+    role: "Inbound market entry — replace with client text",
+  },
+  {
+    quote:
+      "We needed a European route and did not have the export prerequisites in-house. The Alexandria–Athens desk opened the corridor and stayed through the first trades.",
+    name: "Sample quote",
+    role: "Export enablement — replace with client text",
+  },
+  {
+    quote:
+      "An unmet need in the local market, no existing supplier. They found the foreign counterpart and structured the joint venture rather than leaving us with a study.",
+    name: "Sample quote",
+    role: "Joint venture — replace with client text",
+  },
+];
+
 export const MOBILE_EXPERTISE = [
   {
     title: "Strategy",
@@ -308,6 +368,76 @@ export const NEWS = [
     excerpt:
       "When we identify a market need that nobody has attempted before, we search globally for a supplier and structure a local joint venture.",
     body: "This is a core EAC activity: research the world for a supplier of an unmet Egyptian or regional need, then create joint-venture cooperation between the foreign and local counterpart.",
+  },
+  {
+    slug: "export-to-europe",
+    title: "Export enablement: from North Africa into Europe",
+    date: "2026-04-28",
+    category: "Export",
+    image: "/images/shipping.jpg",
+    excerpt:
+      "Dummy insight. Egyptian and North African SMEs often have the product but not the route. The desk is built to open Europe first.",
+    body: "Placeholder article for the insights carousel. EAC assists Egyptian and North African companies that lack the prerequisites to export goods and services, with particular emphasis on Europe. Replace this copy when George supplies editorial.",
+  },
+  {
+    slug: "athens-european-desk",
+    title: "The Athens office as a European counterpart desk",
+    date: "2026-04-10",
+    category: "Territories",
+    image: "/images/architecture.jpg",
+    excerpt:
+      "Dummy insight. Palaio Faliro is the European office — a counterpart for companies in Greece and Mediterranean Europe looking at Egypt and the region.",
+    body: "Placeholder article for the insights carousel. The practice is led from Alexandria, with a European office in Palaio Faliro, Athens. This note is sample content so the carousel can be reviewed. Replace when editorial is supplied.",
+  },
+  {
+    slug: "gulf-capital-partnerships",
+    title: "Gulf capital, Egyptian operations",
+    date: "2026-03-22",
+    category: "Arab Gulf",
+    image: "/images/office.jpg",
+    excerpt:
+      "Dummy insight. Agencies, franchises and joint ventures that link Gulf investors with Egypt, North Africa and Europe.",
+    body: "Placeholder article for the insights carousel. Arab Gulf markets are where the emphasis is capital and commercial partnership. Replace this copy with EAC editorial.",
+  },
+  {
+    slug: "franchise-egypt",
+    title: "Building a franchise chain in Egypt",
+    date: "2026-03-04",
+    category: "Franchise",
+    image: "/images/conference.jpg",
+    excerpt:
+      "Dummy insight. Franchising is one of the routes for brands that want a local network without carrying every outlet themselves.",
+    body: "Placeholder article for the insights carousel. EAC supports the establishment and business development of a franchising chain in Egypt and the wider territory. Sample copy only.",
+  },
+  {
+    slug: "government-setup",
+    title: "Public stakeholders during setup",
+    date: "2026-02-18",
+    category: "Government",
+    image: "/images/columns.jpg",
+    excerpt:
+      "Dummy insight. Files stall in the corridor when nobody is in the room with the public side. Lobbying is part of the setup, not an extra.",
+    body: "Placeholder article for the insights carousel. EAC provides lobbying and negotiation support with public stakeholders during setup and the business-development cycle. Replace when editorial is supplied.",
+  },
+  {
+    slug: "matchmaking-notes",
+    title: "How counterpart search actually starts",
+    date: "2026-02-02",
+    category: "Matchmaking",
+    image: "/images/handshake.jpg",
+    excerpt:
+      "Dummy insight. Agencies, distributors and partners are not a list from a directory. Eligibility and credit history come before the introduction.",
+    body: "Placeholder article for the insights carousel. Connecting international and regional companies for agencies, distribution, partnerships, and long-term cooperation. Sample copy for layout review.",
+  },
+  {
+    slug: "manufacturing-egypt",
+    title: "Setting up a manufacturing unit locally",
+    date: "2026-01-15",
+    category: "Manufacturing",
+    image: "/images/factory.jpg",
+    excerpt:
+      "Dummy insight. Incorporation, staffing and market development have to travel together if a plant is going to trade, not sit idle.",
+    body: "Placeholder article for the insights carousel. EAC supports setting up a manufacturing unit in Egypt through incorporation, staffing, and market development. Replace this copy with client-approved text.",
   },
 ];
 

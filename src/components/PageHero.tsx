@@ -21,17 +21,16 @@ export default function PageHero({
 }: Props) {
   return (
     <section className="relative overflow-hidden bg-[#05070d] text-white">
-      <div className="pointer-events-none absolute -right-8 top-0 hidden h-full w-[46%] md:block">
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[48%] md:block">
         <SiteImage
           src={image}
           alt=""
           fill
           priority
-          className="object-cover opacity-50"
-          sizes="46vw"
+          className="object-cover opacity-55"
+          sizes="48vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#05070d] via-[#05070d]/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-transparent to-[#05070d]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#05070d] via-[#05070d]/70 to-[#05070d]/20" />
       </div>
       {mark ? (
         <p className="pointer-events-none absolute right-[-0.06em] top-8 hidden select-none font-serif text-[11rem] leading-none text-white/[0.06] lg:block">
