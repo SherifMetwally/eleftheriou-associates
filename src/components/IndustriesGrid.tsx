@@ -6,10 +6,10 @@ const ROW_SIZES = [8, 8, 9];
 function Icon({ i }: { i: number }) {
   const common = {
     viewBox: "0 0 24 24",
-    className: "h-4 w-4 shrink-0",
+    className: "h-4 w-4 shrink-0 overflow-visible block",
     fill: "none" as const,
     stroke: "currentColor",
-    strokeWidth: 1.6,
+    strokeWidth: 1.5,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
   };

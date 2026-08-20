@@ -138,9 +138,9 @@ export default function HomePage() {
           <h2 data-reveal className="font-serif text-4xl md:text-5xl text-center mb-14">
             A proven path to international growth
           </h2>
-          <div data-stagger className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+          <div data-stagger className="process-grid relative grid gap-6 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
               {PROCESS.map((p) => (
-                <div key={p.step} className="process-step px-1 pt-6">
+                <div key={p.step} className="process-step">
                   <span className="process-num">{p.step}</span>
                   <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--gold)] mb-3">
                     Process — {p.step}

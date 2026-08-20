@@ -369,26 +369,64 @@ footer a {
   opacity: 0.85;
 }
 
+.process-grid {
+  align-items: stretch;
+  padding-block: 0.75rem;
+}
+
 .process-step {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+  padding: 1.35rem 1rem 1.5rem;
+  border: 1px solid transparent;
+  z-index: 1;
+  transition: transform 420ms var(--ease), background 420ms var(--ease),
+    border-color 420ms var(--ease), box-shadow 420ms var(--ease),
+    opacity 420ms var(--ease);
+}
+
+.process-step h3 {
+  transition: color 420ms var(--ease);
 }
 
 .process-num {
   position: absolute;
-  top: -0.35rem;
-  right: 0.15rem;
+  top: 0.35rem;
+  right: 0.55rem;
   font-family: var(--font-cormorant), Georgia, serif;
   font-size: 4.4rem;
   line-height: 1;
   color: rgba(201, 168, 76, 0.14);
   pointer-events: none;
-  transition: color 400ms var(--ease), transform 400ms var(--ease);
+  z-index: -1;
+  transition: color 420ms var(--ease), transform 420ms var(--ease);
 }
 
-.process-step:hover .process-num {
-  color: rgba(201, 168, 76, 0.32);
-  transform: translateY(-4px);
+@media (hover: hover) {
+  .process-grid:hover .process-step:not(:hover),
+  .js-anim [data-stagger].is-in.process-grid:hover > .process-step:not(:hover) {
+    opacity: 0.42;
+  }
+
+  .process-step:hover,
+  .js-anim [data-stagger].is-in > .process-step:hover {
+    opacity: 1;
+    z-index: 2;
+    transform: translateY(-10px) scale(1.06);
+    background: rgba(201, 168, 76, 0.08);
+    border-color: rgba(201, 168, 76, 0.32);
+    box-shadow: 0 28px 48px -24px rgba(0, 0, 0, 0.7);
+  }
+
+  .process-step:hover h3 {
+    color: var(--gold);
+  }
+
+  .process-step:hover .process-num {
+    color: rgba(201, 168, 76, 0.4);
+    transform: scale(1.12) translateY(-6px);
+  }
 }
 
 .news-card .photo-veil {
@@ -456,9 +494,17 @@ footer a {
   color: var(--navy);
   padding: 0.7rem 1.35rem;
   font-size: 0.9rem;
+  line-height: 1.2;
+  overflow: visible;
   box-shadow: 0 8px 22px -14px rgba(15, 27, 61, 0.45);
   transition: transform 280ms var(--ease), box-shadow 280ms var(--ease),
     color 280ms var(--ease);
+}
+
+.sector-pill svg {
+  display: block;
+  overflow: visible;
+  flex-shrink: 0;
 }
 
 .sector-pill:hover {
@@ -469,6 +515,7 @@ footer a {
 
 .industry-row {
   overflow: hidden;
+  padding-block: 0.4rem;
 }
 
 .industry-track {
