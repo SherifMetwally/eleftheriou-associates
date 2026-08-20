@@ -6,6 +6,8 @@ type Props = {
   hrefFor: (slug: string) => string;
   actionLabel: string;
   services?: Service[];
+  /** Skip scroll-reveal hiding — needed when the list remounts on the client. */
+  instant?: boolean;
 };
 
 const GROUP_SIZE = 3;
@@ -58,8 +60,10 @@ export default function ServiceRoster({
   hrefFor,
   actionLabel,
   services = SERVICES,
+  instant = false,
 }: Props) {
   const groups = chunk([...services], GROUP_SIZE);
+  const staggerClass = instant ? "is-in" : undefined;
 
   return (
     <div className="space-y-14 md:space-y-20">
@@ -72,7 +76,7 @@ export default function ServiceRoster({
             <div
               key={g}
               data-stagger
-              className="divide-y divide-[var(--line)] border-y border-[var(--line)]"
+              className={`divide-y divide-[var(--line)] border-y border-[var(--line)] ${staggerClass ?? ""}`}
             >
               {group.map((s, i) => (
                 <article
@@ -106,7 +110,11 @@ export default function ServiceRoster({
 
         if (layout === 1) {
           return (
-            <div key={g} data-stagger className="grid md:grid-cols-3 gap-8 md:gap-10">
+            <div
+              key={g}
+              data-stagger
+              className={`grid md:grid-cols-3 gap-8 md:gap-10 ${staggerClass ?? ""}`}
+            >
               {group.map((s, i) => (
                 <article
                   key={s.slug}
@@ -135,7 +143,11 @@ export default function ServiceRoster({
         }
 
         return (
-          <div key={g} data-stagger className="grid md:grid-cols-2 gap-8 md:gap-10">
+          <div
+            key={g}
+            data-stagger
+            className={`grid md:grid-cols-2 gap-8 md:gap-10 ${staggerClass ?? ""}`}
+          >
             {group.map((s, i) => (
               <article
                 key={s.slug}
